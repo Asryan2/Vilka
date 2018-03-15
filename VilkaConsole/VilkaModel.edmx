@@ -52,9 +52,9 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SportID" Type="int" Nullable="false" />
-          <Property Name="League" Type="varchar" MaxLength="100" />
-          <Property Name="Home" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Away" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="League" Type="nvarchar" MaxLength="100" />
+          <Property Name="Home" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Away" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Start" Type="datetime" Nullable="false" />
           <Property Name="PrematchEnd" Type="datetime" />
           <Property Name="SiteID" Type="int" Nullable="false" />
@@ -446,9 +446,9 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SportID" Type="Int32" Nullable="false" />
-          <Property Name="League" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Home" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Away" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="League" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Home" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Away" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PrematchEnd" Type="DateTime" Precision="3" />
           <Property Name="SiteID" Type="Int32" Nullable="false" />

@@ -34,6 +34,7 @@ namespace VilkaConsole
 				reader.Close();
 				dataStream.Close();
 			}
+			int added = 0;
 			JObject obj;
 			try
 			{
@@ -127,9 +128,11 @@ namespace VilkaConsole
 							context.Outcomes.Add(o);
 						}
 					}
-					
+					Console.WriteLine("Event added: " + dbEvent.Home + " - " + dbEvent.Away);
+					added++;
 				}
 				context.SaveChanges();
+				Console.WriteLine("Total: " + added);
 
 			}
 			catch (Exception ex)
