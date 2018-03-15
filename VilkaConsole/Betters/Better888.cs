@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using VilkaConsole.Helpers;
 using VilkaConsole.Mappings;
 
-namespace VilkaConsole
+namespace VilkaConsole.Betters
 {
 	class Better888
 	{
