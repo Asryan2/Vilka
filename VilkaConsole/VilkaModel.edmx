@@ -1,0 +1,1001 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="VilkaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BetOffers">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="BetTypeID" Type="int" Nullable="false" />
+          <Property Name="BetTargetID" Type="int" />
+        </EntityType>
+        <EntityType Name="BetTargetMappings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="BetTargetID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BetTargets">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BetTypeMappings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="BetTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BetTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SportID" Type="int" Nullable="false" />
+          <Property Name="League" Type="varchar" MaxLength="100" />
+          <Property Name="Home" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Away" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="PrematchEnd" Type="datetime" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="Region" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="EventSiteData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="Data" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Outcomes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutcomeTypeID" Type="int" Nullable="false" />
+          <Property Name="Line" Type="int" />
+          <Property Name="Odds" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BetOfferID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OutcomeTypeMappings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="OutcomeTypeID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OutcomeTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sites">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SportMappings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="SportID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sports">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BetOffers_BetTargets">
+          <End Role="BetTargets" Type="Self.BetTargets" Multiplicity="0..1" />
+          <End Role="BetOffers" Type="Self.BetOffers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetTargets">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetOffers">
+              <PropertyRef Name="BetTargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetOffers_BetTypes">
+          <End Role="BetTypes" Type="Self.BetTypes" Multiplicity="1" />
+          <End Role="BetOffers" Type="Self.BetOffers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetOffers">
+              <PropertyRef Name="BetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetOffers_Events">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="BetOffers" Type="Self.BetOffers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetOffers">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetTargetMappings_BetTargets">
+          <End Role="BetTargets" Type="Self.BetTargets" Multiplicity="1" />
+          <End Role="BetTargetMappings" Type="Self.BetTargetMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetTargets">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTargetMappings">
+              <PropertyRef Name="BetTargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetTargetMappings_Sites">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="BetTargetMappings" Type="Self.BetTargetMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTargetMappings">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetTypeMappings_BetTypes">
+          <End Role="BetTypes" Type="Self.BetTypes" Multiplicity="1" />
+          <End Role="BetTypeMappings" Type="Self.BetTypeMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTypeMappings">
+              <PropertyRef Name="BetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetTypeMappings_Sites">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="BetTypeMappings" Type="Self.BetTypeMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTypeMappings">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Sites1">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Sports">
+          <End Role="Sports" Type="Self.Sports" Multiplicity="1" />
+          <End Role="Events" Type="Self.Events" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventSiteData_Events">
+          <End Role="Events" Type="Self.Events" Multiplicity="1" />
+          <End Role="EventSiteData" Type="Self.EventSiteData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventSiteData">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventSiteData_Sites">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="EventSiteData" Type="Self.EventSiteData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventSiteData">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Outcomes_BetOffers">
+          <End Role="BetOffers" Type="Self.BetOffers" Multiplicity="1" />
+          <End Role="Outcomes" Type="Self.Outcomes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetOffers">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Outcomes">
+              <PropertyRef Name="BetOfferID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Outcomes_OutcomeTypes">
+          <End Role="OutcomeTypes" Type="Self.OutcomeTypes" Multiplicity="1" />
+          <End Role="Outcomes" Type="Self.Outcomes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutcomeTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Outcomes">
+              <PropertyRef Name="OutcomeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutcomeTypeMappings_OutcomeTypes">
+          <End Role="OutcomeTypes" Type="Self.OutcomeTypes" Multiplicity="1" />
+          <End Role="OutcomeTypeMappings" Type="Self.OutcomeTypeMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutcomeTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OutcomeTypeMappings">
+              <PropertyRef Name="OutcomeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutcomeTypeMappings_Sites">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="OutcomeTypeMappings" Type="Self.OutcomeTypeMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OutcomeTypeMappings">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SportMappings_Sites">
+          <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
+          <End Role="SportMappings" Type="Self.SportMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SportMappings">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SportMappings_Sports">
+          <End Role="Sports" Type="Self.Sports" Multiplicity="1" />
+          <End Role="SportMappings" Type="Self.SportMappings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SportMappings">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VilkaModelStoreContainer">
+          <EntitySet Name="BetOffers" EntityType="Self.BetOffers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BetTargetMappings" EntityType="Self.BetTargetMappings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BetTargets" EntityType="Self.BetTargets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BetTypeMappings" EntityType="Self.BetTypeMappings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BetTypes" EntityType="Self.BetTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventSiteData" EntityType="Self.EventSiteData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outcomes" EntityType="Self.Outcomes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutcomeTypeMappings" EntityType="Self.OutcomeTypeMappings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutcomeTypes" EntityType="Self.OutcomeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SportMappings" EntityType="Self.SportMappings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sports" EntityType="Self.Sports" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BetOffers_BetTargets" Association="Self.FK_BetOffers_BetTargets">
+            <End Role="BetTargets" EntitySet="BetTargets" />
+            <End Role="BetOffers" EntitySet="BetOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetOffers_BetTypes" Association="Self.FK_BetOffers_BetTypes">
+            <End Role="BetTypes" EntitySet="BetTypes" />
+            <End Role="BetOffers" EntitySet="BetOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetOffers_Events" Association="Self.FK_BetOffers_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="BetOffers" EntitySet="BetOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetTargetMappings_BetTargets" Association="Self.FK_BetTargetMappings_BetTargets">
+            <End Role="BetTargets" EntitySet="BetTargets" />
+            <End Role="BetTargetMappings" EntitySet="BetTargetMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetTargetMappings_Sites" Association="Self.FK_BetTargetMappings_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="BetTargetMappings" EntitySet="BetTargetMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetTypeMappings_BetTypes" Association="Self.FK_BetTypeMappings_BetTypes">
+            <End Role="BetTypes" EntitySet="BetTypes" />
+            <End Role="BetTypeMappings" EntitySet="BetTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetTypeMappings_Sites" Association="Self.FK_BetTypeMappings_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="BetTypeMappings" EntitySet="BetTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Sites1" Association="Self.FK_Events_Sites1">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Sports" Association="Self.FK_Events_Sports">
+            <End Role="Sports" EntitySet="Sports" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventSiteData_Events" Association="Self.FK_EventSiteData_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventSiteData" EntitySet="EventSiteData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventSiteData_Sites" Association="Self.FK_EventSiteData_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="EventSiteData" EntitySet="EventSiteData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Outcomes_BetOffers" Association="Self.FK_Outcomes_BetOffers">
+            <End Role="BetOffers" EntitySet="BetOffers" />
+            <End Role="Outcomes" EntitySet="Outcomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Outcomes_OutcomeTypes" Association="Self.FK_Outcomes_OutcomeTypes">
+            <End Role="OutcomeTypes" EntitySet="OutcomeTypes" />
+            <End Role="Outcomes" EntitySet="Outcomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutcomeTypeMappings_OutcomeTypes" Association="Self.FK_OutcomeTypeMappings_OutcomeTypes">
+            <End Role="OutcomeTypes" EntitySet="OutcomeTypes" />
+            <End Role="OutcomeTypeMappings" EntitySet="OutcomeTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutcomeTypeMappings_Sites" Association="Self.FK_OutcomeTypeMappings_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="OutcomeTypeMappings" EntitySet="OutcomeTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SportMappings_Sites" Association="Self.FK_SportMappings_Sites">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="SportMappings" EntitySet="SportMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SportMappings_Sports" Association="Self.FK_SportMappings_Sports">
+            <End Role="Sports" EntitySet="Sports" />
+            <End Role="SportMappings" EntitySet="SportMappings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="VilkaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BetOffer">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="BetTypeID" Type="Int32" Nullable="false" />
+          <Property Name="BetTargetID" Type="Int32" />
+          <NavigationProperty Name="BetTarget" Relationship="Self.FK_BetOffers_BetTargets" FromRole="BetOffers" ToRole="BetTargets" />
+          <NavigationProperty Name="BetType" Relationship="Self.FK_BetOffers_BetTypes" FromRole="BetOffers" ToRole="BetTypes" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_BetOffers_Events" FromRole="BetOffers" ToRole="Events" />
+          <NavigationProperty Name="Outcomes" Relationship="VilkaModel.FK_Outcomes_BetOffers" FromRole="BetOffer" ToRole="Outcome" />
+        </EntityType>
+        <EntityType Name="BetTarget">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BetOffers" Relationship="Self.FK_BetOffers_BetTargets" FromRole="BetTargets" ToRole="BetOffers" />
+          <NavigationProperty Name="BetTargetMappings" Relationship="VilkaModel.FK_BetTargetMappings_BetTargets" FromRole="BetTarget" ToRole="BetTargetMapping" />
+        </EntityType>
+        <EntityType Name="BetType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BetOffers" Relationship="Self.FK_BetOffers_BetTypes" FromRole="BetTypes" ToRole="BetOffers" />
+          <NavigationProperty Name="BetTypeMappings" Relationship="VilkaModel.FK_BetTypeMappings_BetTypes" FromRole="BetType" ToRole="BetTypeMapping" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SportID" Type="Int32" Nullable="false" />
+          <Property Name="League" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Home" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Away" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PrematchEnd" Type="DateTime" Precision="3" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="Region" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BetOffers" Relationship="Self.FK_BetOffers_Events" FromRole="Events" ToRole="BetOffers" />
+          <NavigationProperty Name="Site" Relationship="Self.FK_Events_Sites1" FromRole="Events" ToRole="Sites" />
+          <NavigationProperty Name="Sport" Relationship="Self.FK_Events_Sports" FromRole="Events" ToRole="Sports" />
+          <NavigationProperty Name="EventSiteDatas" Relationship="VilkaModel.FK_EventSiteData_Events" FromRole="Event" ToRole="EventSiteData" />
+        </EntityType>
+        <EntityType Name="Outcome">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutcomeTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Line" Type="Int32" />
+          <Property Name="Odds" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="OutcomeType" Relationship="Self.FK_Outcomes_OutcomeTypes" FromRole="Outcomes" ToRole="OutcomeTypes" />
+          <Property Name="BetOfferID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="BetOffer" Relationship="VilkaModel.FK_Outcomes_BetOffers" FromRole="Outcome" ToRole="BetOffer" />
+        </EntityType>
+        <EntityType Name="OutcomeType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Outcomes" Relationship="Self.FK_Outcomes_OutcomeTypes" FromRole="OutcomeTypes" ToRole="Outcomes" />
+          <NavigationProperty Name="OutcomeTypeMappings" Relationship="VilkaModel.FK_OutcomeTypeMappings_OutcomeTypes" FromRole="OutcomeType" ToRole="OutcomeTypeMapping" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Sites1" FromRole="Sites" ToRole="Events" />
+          <NavigationProperty Name="EventSiteDatas" Relationship="VilkaModel.FK_EventSiteData_Sites" FromRole="Site" ToRole="EventSiteData" />
+          <NavigationProperty Name="SportMappings" Relationship="VilkaModel.FK_SportMappings_Sites" FromRole="Site" ToRole="SportMapping" />
+          <NavigationProperty Name="BetTypeMappings" Relationship="VilkaModel.FK_BetTypeMappings_Sites" FromRole="Site" ToRole="BetTypeMapping" />
+          <NavigationProperty Name="BetTargetMappings" Relationship="VilkaModel.FK_BetTargetMappings_Sites" FromRole="Site" ToRole="BetTargetMapping" />
+          <NavigationProperty Name="OutcomeTypeMappings" Relationship="VilkaModel.FK_OutcomeTypeMappings_Sites" FromRole="Site" ToRole="OutcomeTypeMapping" />
+        </EntityType>
+        <EntityType Name="Sport">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Events" Relationship="Self.FK_Events_Sports" FromRole="Sports" ToRole="Events" />
+          <NavigationProperty Name="SportMappings" Relationship="VilkaModel.FK_SportMappings_Sports" FromRole="Sport" ToRole="SportMapping" />
+        </EntityType>
+        <Association Name="FK_BetOffers_BetTargets">
+          <End Role="BetTargets" Type="Self.BetTarget" Multiplicity="0..1" />
+          <End Role="BetOffers" Type="Self.BetOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetTargets">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetOffers">
+              <PropertyRef Name="BetTargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetOffers_BetTypes">
+          <End Role="BetTypes" Type="Self.BetType" Multiplicity="1" />
+          <End Role="BetOffers" Type="Self.BetOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetOffers">
+              <PropertyRef Name="BetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetOffers_Events">
+          <End Role="Events" Type="Self.Event" Multiplicity="1" />
+          <End Role="BetOffers" Type="Self.BetOffer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetOffers">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Sites1">
+          <End Role="Sites" Type="Self.Site" Multiplicity="1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sites">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Events_Sports">
+          <End Role="Sports" Type="Self.Sport" Multiplicity="1" />
+          <End Role="Events" Type="Self.Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Events">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Outcomes_OutcomeTypes">
+          <End Role="OutcomeTypes" Type="Self.OutcomeType" Multiplicity="1" />
+          <End Role="Outcomes" Type="Self.Outcome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutcomeTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Outcomes">
+              <PropertyRef Name="OutcomeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="VilkaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BetOffers" EntityType="Self.BetOffer" />
+          <EntitySet Name="BetTargets" EntityType="Self.BetTarget" />
+          <EntitySet Name="BetTypes" EntityType="Self.BetType" />
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="Outcomes" EntityType="Self.Outcome" />
+          <EntitySet Name="OutcomeTypes" EntityType="Self.OutcomeType" />
+          <EntitySet Name="Sites" EntityType="Self.Site" />
+          <EntitySet Name="Sports" EntityType="Self.Sport" />
+          <AssociationSet Name="FK_BetOffers_BetTargets" Association="Self.FK_BetOffers_BetTargets">
+            <End Role="BetTargets" EntitySet="BetTargets" />
+            <End Role="BetOffers" EntitySet="BetOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetOffers_BetTypes" Association="Self.FK_BetOffers_BetTypes">
+            <End Role="BetTypes" EntitySet="BetTypes" />
+            <End Role="BetOffers" EntitySet="BetOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetOffers_Events" Association="Self.FK_BetOffers_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="BetOffers" EntitySet="BetOffers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Sites1" Association="Self.FK_Events_Sites1">
+            <End Role="Sites" EntitySet="Sites" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Events_Sports" Association="Self.FK_Events_Sports">
+            <End Role="Sports" EntitySet="Sports" />
+            <End Role="Events" EntitySet="Events" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Outcomes_OutcomeTypes" Association="Self.FK_Outcomes_OutcomeTypes">
+            <End Role="OutcomeTypes" EntitySet="OutcomeTypes" />
+            <End Role="Outcomes" EntitySet="Outcomes" />
+          </AssociationSet>
+          <EntitySet Name="EventSiteDatas" EntityType="VilkaModel.EventSiteData" />
+          <AssociationSet Name="FK_EventSiteData_Events" Association="VilkaModel.FK_EventSiteData_Events">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventSiteData" EntitySet="EventSiteDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventSiteData_Sites" Association="VilkaModel.FK_EventSiteData_Sites">
+            <End Role="Site" EntitySet="Sites" />
+            <End Role="EventSiteData" EntitySet="EventSiteDatas" />
+          </AssociationSet>
+          <EntitySet Name="SportMappings" EntityType="VilkaModel.SportMapping" />
+          <AssociationSet Name="FK_SportMappings_Sites" Association="VilkaModel.FK_SportMappings_Sites">
+            <End Role="Site" EntitySet="Sites" />
+            <End Role="SportMapping" EntitySet="SportMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SportMappings_Sports" Association="VilkaModel.FK_SportMappings_Sports">
+            <End Role="Sport" EntitySet="Sports" />
+            <End Role="SportMapping" EntitySet="SportMappings" />
+          </AssociationSet>
+          <EntitySet Name="BetTypeMappings" EntityType="VilkaModel.BetTypeMapping" />
+          <AssociationSet Name="FK_BetTypeMappings_BetTypes" Association="VilkaModel.FK_BetTypeMappings_BetTypes">
+            <End Role="BetType" EntitySet="BetTypes" />
+            <End Role="BetTypeMapping" EntitySet="BetTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetTypeMappings_Sites" Association="VilkaModel.FK_BetTypeMappings_Sites">
+            <End Role="Site" EntitySet="Sites" />
+            <End Role="BetTypeMapping" EntitySet="BetTypeMappings" />
+          </AssociationSet>
+          <EntitySet Name="BetTargetMappings" EntityType="VilkaModel.BetTargetMapping" />
+          <AssociationSet Name="FK_BetTargetMappings_BetTargets" Association="VilkaModel.FK_BetTargetMappings_BetTargets">
+            <End Role="BetTarget" EntitySet="BetTargets" />
+            <End Role="BetTargetMapping" EntitySet="BetTargetMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BetTargetMappings_Sites" Association="VilkaModel.FK_BetTargetMappings_Sites">
+            <End Role="Site" EntitySet="Sites" />
+            <End Role="BetTargetMapping" EntitySet="BetTargetMappings" />
+          </AssociationSet>
+          <EntitySet Name="OutcomeTypeMappings" EntityType="VilkaModel.OutcomeTypeMapping" />
+          <AssociationSet Name="FK_OutcomeTypeMappings_OutcomeTypes" Association="VilkaModel.FK_OutcomeTypeMappings_OutcomeTypes">
+            <End Role="OutcomeType" EntitySet="OutcomeTypes" />
+            <End Role="OutcomeTypeMapping" EntitySet="OutcomeTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutcomeTypeMappings_Sites" Association="VilkaModel.FK_OutcomeTypeMappings_Sites">
+            <End Role="Site" EntitySet="Sites" />
+            <End Role="OutcomeTypeMapping" EntitySet="OutcomeTypeMappings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Outcomes_BetOffers" Association="VilkaModel.FK_Outcomes_BetOffers">
+            <End Role="BetOffer" EntitySet="BetOffers" />
+            <End Role="Outcome" EntitySet="Outcomes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="EventSiteData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="Data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Event" Relationship="VilkaModel.FK_EventSiteData_Events" FromRole="EventSiteData" ToRole="Event" />
+          <NavigationProperty Name="Site" Relationship="VilkaModel.FK_EventSiteData_Sites" FromRole="EventSiteData" ToRole="Site" />
+        </EntityType>
+        <Association Name="FK_EventSiteData_Events">
+          <End Type="VilkaModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="VilkaModel.EventSiteData" Role="EventSiteData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventSiteData">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventSiteData_Sites">
+          <End Type="VilkaModel.Site" Role="Site" Multiplicity="1" />
+          <End Type="VilkaModel.EventSiteData" Role="EventSiteData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EventSiteData">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SportMapping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="SportID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Site" Relationship="VilkaModel.FK_SportMappings_Sites" FromRole="SportMapping" ToRole="Site" />
+          <NavigationProperty Name="Sport" Relationship="VilkaModel.FK_SportMappings_Sports" FromRole="SportMapping" ToRole="Sport" />
+        </EntityType>
+        <Association Name="FK_SportMappings_Sites">
+          <End Type="VilkaModel.Site" Role="Site" Multiplicity="1" />
+          <End Type="VilkaModel.SportMapping" Role="SportMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SportMapping">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SportMappings_Sports">
+          <End Type="VilkaModel.Sport" Role="Sport" Multiplicity="1" />
+          <End Type="VilkaModel.SportMapping" Role="SportMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sport">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="SportMapping">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BetTypeMapping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="BetTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BetType" Relationship="VilkaModel.FK_BetTypeMappings_BetTypes" FromRole="BetTypeMapping" ToRole="BetType" />
+          <NavigationProperty Name="Site" Relationship="VilkaModel.FK_BetTypeMappings_Sites" FromRole="BetTypeMapping" ToRole="Site" />
+        </EntityType>
+        <Association Name="FK_BetTypeMappings_BetTypes">
+          <End Type="VilkaModel.BetType" Role="BetType" Multiplicity="1" />
+          <End Type="VilkaModel.BetTypeMapping" Role="BetTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTypeMapping">
+              <PropertyRef Name="BetTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetTypeMappings_Sites">
+          <End Type="VilkaModel.Site" Role="Site" Multiplicity="1" />
+          <End Type="VilkaModel.BetTypeMapping" Role="BetTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTypeMapping">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BetTargetMapping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="BetTargetID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="BetTarget" Relationship="VilkaModel.FK_BetTargetMappings_BetTargets" FromRole="BetTargetMapping" ToRole="BetTarget" />
+          <NavigationProperty Name="Site" Relationship="VilkaModel.FK_BetTargetMappings_Sites" FromRole="BetTargetMapping" ToRole="Site" />
+        </EntityType>
+        <Association Name="FK_BetTargetMappings_BetTargets">
+          <End Type="VilkaModel.BetTarget" Role="BetTarget" Multiplicity="1" />
+          <End Type="VilkaModel.BetTargetMapping" Role="BetTargetMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetTarget">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTargetMapping">
+              <PropertyRef Name="BetTargetID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BetTargetMappings_Sites">
+          <End Type="VilkaModel.Site" Role="Site" Multiplicity="1" />
+          <End Type="VilkaModel.BetTargetMapping" Role="BetTargetMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BetTargetMapping">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OutcomeTypeMapping">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="OutcomeTypeID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OutcomeType" Relationship="VilkaModel.FK_OutcomeTypeMappings_OutcomeTypes" FromRole="OutcomeTypeMapping" ToRole="OutcomeType" />
+          <NavigationProperty Name="Site" Relationship="VilkaModel.FK_OutcomeTypeMappings_Sites" FromRole="OutcomeTypeMapping" ToRole="Site" />
+        </EntityType>
+        <Association Name="FK_OutcomeTypeMappings_OutcomeTypes">
+          <End Type="VilkaModel.OutcomeType" Role="OutcomeType" Multiplicity="1" />
+          <End Type="VilkaModel.OutcomeTypeMapping" Role="OutcomeTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutcomeType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OutcomeTypeMapping">
+              <PropertyRef Name="OutcomeTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutcomeTypeMappings_Sites">
+          <End Type="VilkaModel.Site" Role="Site" Multiplicity="1" />
+          <End Type="VilkaModel.OutcomeTypeMapping" Role="OutcomeTypeMapping" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Site">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OutcomeTypeMapping">
+              <PropertyRef Name="SiteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Outcomes_BetOffers">
+          <End Type="VilkaModel.BetOffer" Role="BetOffer" Multiplicity="1" />
+          <End Type="VilkaModel.Outcome" Role="Outcome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BetOffer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Outcome">
+              <PropertyRef Name="BetOfferID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="VilkaModelStoreContainer" CdmEntityContainer="VilkaEntities">
+          <EntitySetMapping Name="BetOffers">
+            <EntityTypeMapping TypeName="VilkaModel.BetOffer">
+              <MappingFragment StoreEntitySet="BetOffers">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="BetTypeID" ColumnName="BetTypeID" />
+                <ScalarProperty Name="BetTargetID" ColumnName="BetTargetID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BetTargets">
+            <EntityTypeMapping TypeName="VilkaModel.BetTarget">
+              <MappingFragment StoreEntitySet="BetTargets">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BetTypes">
+            <EntityTypeMapping TypeName="VilkaModel.BetType">
+              <MappingFragment StoreEntitySet="BetTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="VilkaModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
+                <ScalarProperty Name="League" ColumnName="League" />
+                <ScalarProperty Name="Home" ColumnName="Home" />
+                <ScalarProperty Name="Away" ColumnName="Away" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="PrematchEnd" ColumnName="PrematchEnd" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outcomes">
+            <EntityTypeMapping TypeName="VilkaModel.Outcome">
+              <MappingFragment StoreEntitySet="Outcomes">
+                <ScalarProperty Name="BetOfferID" ColumnName="BetOfferID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OutcomeTypeID" ColumnName="OutcomeTypeID" />
+                <ScalarProperty Name="Line" ColumnName="Line" />
+                <ScalarProperty Name="Odds" ColumnName="Odds" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutcomeTypes">
+            <EntityTypeMapping TypeName="VilkaModel.OutcomeType">
+              <MappingFragment StoreEntitySet="OutcomeTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites">
+            <EntityTypeMapping TypeName="VilkaModel.Site">
+              <MappingFragment StoreEntitySet="Sites">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sports">
+            <EntityTypeMapping TypeName="VilkaModel.Sport">
+              <MappingFragment StoreEntitySet="Sports">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventSiteDatas">
+            <EntityTypeMapping TypeName="VilkaModel.EventSiteData">
+              <MappingFragment StoreEntitySet="EventSiteData">
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SportMappings">
+            <EntityTypeMapping TypeName="VilkaModel.SportMapping">
+              <MappingFragment StoreEntitySet="SportMappings">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BetTypeMappings">
+            <EntityTypeMapping TypeName="VilkaModel.BetTypeMapping">
+              <MappingFragment StoreEntitySet="BetTypeMappings">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BetTypeID" ColumnName="BetTypeID" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BetTargetMappings">
+            <EntityTypeMapping TypeName="VilkaModel.BetTargetMapping">
+              <MappingFragment StoreEntitySet="BetTargetMappings">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BetTargetID" ColumnName="BetTargetID" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutcomeTypeMappings">
+            <EntityTypeMapping TypeName="VilkaModel.OutcomeTypeMapping">
+              <MappingFragment StoreEntitySet="OutcomeTypeMappings">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="OutcomeTypeID" ColumnName="OutcomeTypeID" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
