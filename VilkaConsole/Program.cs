@@ -12,7 +12,7 @@ namespace VilkaConsole
     {
         static void Main(string[] args)
         {
-            BetterVivaro better = new BetterVivaro();
+            Better888 better = new Better888();
 			DateTime start = DateTime.Now;
 			better.FillDB();
 			//var a = Comparator.Similarity("FK Cukaricki", "FK Cukaricki");

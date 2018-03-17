@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Scheduler
@@ -10,6 +11,18 @@ namespace Scheduler
 	{
 		static void Main(string[] args)
 		{
+			DeleteLiveJob job = new DeleteLiveJob();
+			Task.Run(new Action(() => {
+				while (true)
+				{
+					Thread.Sleep(600000);
+					job.Run();
+				}
+			}));
+			while (true)
+			{
+				Thread.Sleep(600000);
+			}
 		}
 	}
 }

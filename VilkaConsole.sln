@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler", "Scheduler\Sche
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vilka.DB", "Vilka.DB\Vilka.DB.csproj", "{AEE4894E-CB37-489D-B7B0-5A69B31970C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vilka.Infrastructure", "Vilka.Infrastructure\Vilka.Infrastructure.csproj", "{5482F180-E4A7-4993-B688-CD13FDE1241A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AEE4894E-CB37-489D-B7B0-5A69B31970C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEE4894E-CB37-489D-B7B0-5A69B31970C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEE4894E-CB37-489D-B7B0-5A69B31970C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5482F180-E4A7-4993-B688-CD13FDE1241A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5482F180-E4A7-4993-B688-CD13FDE1241A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5482F180-E4A7-4993-B688-CD13FDE1241A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5482F180-E4A7-4993-B688-CD13FDE1241A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

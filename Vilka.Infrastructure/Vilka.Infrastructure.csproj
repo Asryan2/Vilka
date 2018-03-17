@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B8F5DA8A-9923-4560-A21F-8769B0F37B65}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{5482F180-E4A7-4993-B688-CD13FDE1241A}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Scheduler</RootNamespace>
-    <AssemblyName>Scheduler</AssemblyName>
+    <RootNamespace>Vilka.Infrastructure</RootNamespace>
+    <AssemblyName>Vilka.Infrastructure</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -52,24 +49,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeleteLiveJob.cs" />
-    <Compile Include="Interfaces\IJob.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Helpers\Comparator.cs" />
+    <Compile Include="Helpers\DateHelpers.cs" />
+    <Compile Include="Helpers\DBExtensions.cs" />
+    <Compile Include="Helpers\DBFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Vilka.DB\Vilka.DB.csproj">
       <Project>{aee4894e-cb37-489d-b7b0-5a69b31970c8}</Project>
       <Name>Vilka.DB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vilka.Infrastructure\Vilka.Infrastructure.csproj">
-      <Project>{5482f180-e4a7-4993-b688-cd13fde1241a}</Project>
-      <Name>Vilka.Infrastructure</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
