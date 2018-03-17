@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VilkaConsole
+namespace Vilka.DB
 {
     using System;
     using System.Collections.Generic;

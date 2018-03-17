@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VilkaConsole
+namespace Vilka.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class SportMapping
+    public partial class OutcomeTypeMapping
     {
         public int ID { get; set; }
         public int SiteID { get; set; }
-        public int SportID { get; set; }
+        public int OutcomeTypeID { get; set; }
         public string Name { get; set; }
     
+        public virtual OutcomeType OutcomeType { get; set; }
         public virtual Site Site { get; set; }
-        public virtual Sport Sport { get; set; }
     }
 }

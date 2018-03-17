@@ -7,26 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VilkaConsole
+namespace Vilka.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class OutcomeType
+    public partial class BetOffer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OutcomeType()
+        public BetOffer()
         {
             this.Outcomes = new HashSet<Outcome>();
-            this.OutcomeTypeMappings = new HashSet<OutcomeTypeMapping>();
         }
     
         public int ID { get; set; }
-        public string Name { get; set; }
+        public int EventID { get; set; }
+        public int BetTypeID { get; set; }
+        public Nullable<int> BetTargetID { get; set; }
     
+        public virtual BetTarget BetTarget { get; set; }
+        public virtual BetType BetType { get; set; }
+        public virtual Event Event { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Outcome> Outcomes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutcomeTypeMapping> OutcomeTypeMappings { get; set; }
     }
 }

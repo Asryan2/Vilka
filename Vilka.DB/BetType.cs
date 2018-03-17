@@ -7,35 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VilkaConsole
+namespace Vilka.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Event
+    public partial class BetType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Event()
+        public BetType()
         {
             this.BetOffers = new HashSet<BetOffer>();
-            this.EventSiteDatas = new HashSet<EventSiteData>();
+            this.BetTypeMappings = new HashSet<BetTypeMapping>();
         }
     
         public int ID { get; set; }
-        public int SportID { get; set; }
-        public string League { get; set; }
-        public string Home { get; set; }
-        public string Away { get; set; }
-        public System.DateTime Start { get; set; }
-        public Nullable<System.DateTime> PrematchEnd { get; set; }
-        public int SiteID { get; set; }
-        public string Region { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BetOffer> BetOffers { get; set; }
-        public virtual Site Site { get; set; }
-        public virtual Sport Sport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventSiteData> EventSiteDatas { get; set; }
+        public virtual ICollection<BetTypeMapping> BetTypeMappings { get; set; }
     }
 }

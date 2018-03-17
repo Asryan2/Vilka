@@ -7,22 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VilkaConsole
+namespace Vilka.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Site
+    public partial class Sport
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Site()
+        public Sport()
         {
             this.Events = new HashSet<Event>();
-            this.EventSiteDatas = new HashSet<EventSiteData>();
             this.SportMappings = new HashSet<SportMapping>();
-            this.BetTypeMappings = new HashSet<BetTypeMapping>();
-            this.BetTargetMappings = new HashSet<BetTargetMapping>();
-            this.OutcomeTypeMappings = new HashSet<OutcomeTypeMapping>();
         }
     
         public int ID { get; set; }
@@ -31,14 +27,6 @@ namespace VilkaConsole
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Event> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EventSiteData> EventSiteDatas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SportMapping> SportMappings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BetTypeMapping> BetTypeMappings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BetTargetMapping> BetTargetMappings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutcomeTypeMapping> OutcomeTypeMappings { get; set; }
     }
 }

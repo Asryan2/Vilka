@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Vilka.DB;
 using VilkaConsole.Helpers;
 using VilkaConsole.Mappings;
 

@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VilkaConsole
+namespace Vilka.DB
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class BetTargetMapping
+    public partial class BetTypeMapping
     {
         public int ID { get; set; }
         public int SiteID { get; set; }
-        public int BetTargetID { get; set; }
+        public int BetTypeID { get; set; }
         public string Name { get; set; }
     
-        public virtual BetTarget BetTarget { get; set; }
+        public virtual BetType BetType { get; set; }
         public virtual Site Site { get; set; }
     }
 }
