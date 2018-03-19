@@ -11,9 +11,18 @@ namespace Vilka.Helpers
 	{
 		public static bool CompareEvents(Event first, Event second)
 		{
+			double neededPercentage = 80;
+			if (first.Start <= second.Start - new TimeSpan(0, 5, 0) || first.Start > second.Start + new TimeSpan(0, 5, 0)) return false;
+			if (Similarity(first.League, second.League) > 80) neededPercentage *= 0.8;
+			if (Similarity(first.Region, second.Region) > 80) neededPercentage *= 0.8;
+
 			double homePercentage = Similarity(first.Home, second.Home);
 			double awayPercentage = Similarity(first.Away, second.Away);
 
+			if((homePercentage + awayPercentage) / 2 > 80)
+			{
+				var a = 1;
+			}
 			return (homePercentage + awayPercentage)/2 > 80;
 		}
 		public static double Similarity(string s, string t)

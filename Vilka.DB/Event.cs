@@ -28,12 +28,10 @@ namespace Vilka.DB
         public string Away { get; set; }
         public System.DateTime Start { get; set; }
         public Nullable<System.DateTime> PrematchEnd { get; set; }
-        public int SiteID { get; set; }
         public string Region { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BetOffer> BetOffers { get; set; }
-        public virtual Site Site { get; set; }
         public virtual Sport Sport { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventSiteData> EventSiteDatas { get; set; }

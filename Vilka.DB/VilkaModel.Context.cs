@@ -26,17 +26,17 @@ namespace Vilka.DB
         }
     
         public virtual DbSet<BetOffer> BetOffers { get; set; }
+        public virtual DbSet<BetTargetMapping> BetTargetMappings { get; set; }
         public virtual DbSet<BetTarget> BetTargets { get; set; }
+        public virtual DbSet<BetTypeMapping> BetTypeMappings { get; set; }
         public virtual DbSet<BetType> BetTypes { get; set; }
         public virtual DbSet<Event> Events { get; set; }
+        public virtual DbSet<EventSiteData> EventSiteDatas { get; set; }
         public virtual DbSet<Outcome> Outcomes { get; set; }
+        public virtual DbSet<OutcomeTypeMapping> OutcomeTypeMappings { get; set; }
         public virtual DbSet<OutcomeType> OutcomeTypes { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
-        public virtual DbSet<Sport> Sports { get; set; }
-        public virtual DbSet<EventSiteData> EventSiteDatas { get; set; }
         public virtual DbSet<SportMapping> SportMappings { get; set; }
-        public virtual DbSet<BetTypeMapping> BetTypeMappings { get; set; }
-        public virtual DbSet<BetTargetMapping> BetTargetMappings { get; set; }
-        public virtual DbSet<OutcomeTypeMapping> OutcomeTypeMappings { get; set; }
+        public virtual DbSet<Sport> Sports { get; set; }
     }
 }

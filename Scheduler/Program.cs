@@ -15,8 +15,8 @@ namespace Scheduler
 			Task.Run(new Action(() => {
 				while (true)
 				{
-					Thread.Sleep(600000);
 					job.Run();
+					Thread.Sleep(600000);
 				}
 			}));
 			while (true)

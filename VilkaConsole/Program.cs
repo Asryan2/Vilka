@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VilkaConsole.Betters;
-using VilkaConsole.Helpers;
 
 namespace VilkaConsole
 {
@@ -12,10 +11,9 @@ namespace VilkaConsole
     {
         static void Main(string[] args)
         {
-            Better888 better = new Better888();
+            BetterVivaro better = new BetterVivaro();
 			DateTime start = DateTime.Now;
 			better.FillDB();
-			//var a = Comparator.Similarity("FK Cukaricki", "FK Cukaricki");
 			TimeSpan took = DateTime.Now - start;
 			Console.WriteLine(took.ToString("G"));
             //foreach(Event e in events)

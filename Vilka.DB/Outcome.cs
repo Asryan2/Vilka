@@ -20,7 +20,7 @@ namespace Vilka.DB
         public string Odds { get; set; }
         public int BetOfferID { get; set; }
     
-        public virtual OutcomeType OutcomeType { get; set; }
         public virtual BetOffer BetOffer { get; set; }
+        public virtual OutcomeType OutcomeType { get; set; }
     }
 }

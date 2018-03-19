@@ -92,26 +92,34 @@
       <DependentUpon>VilkaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="VilkaModel.Context.cs">
-      <DependentUpon>VilkaModel.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>VilkaModel.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="VilkaModel.cs">
-      <DependentUpon>VilkaModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>VilkaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="VilkaModel.Designer.cs">
-      <DependentUpon>VilkaModel.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>VilkaModel.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
     <EntityDeploy Include="VilkaModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>VilkaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="VilkaModel.edmx.diagram">
+      <DependentUpon>VilkaModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="VilkaModel.Context.tt">
@@ -124,13 +132,6 @@
       <DependentUpon>VilkaModel.edmx</DependentUpon>
       <LastGenOutput>VilkaModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="VilkaModel.edmx.diagram">
-      <DependentUpon>VilkaModel.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

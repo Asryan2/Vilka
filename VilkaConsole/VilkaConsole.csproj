@@ -97,10 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Betters\BetterVivaro.cs" />
-    <Compile Include="Helpers\Comparator.cs" />
-    <Compile Include="Helpers\DateHelpers.cs" />
-    <Compile Include="Helpers\DBExtensions.cs" />
-    <Compile Include="Helpers\DBFinder.cs" />
     <Compile Include="Mappings\BetterVivaroMappings.cs" />
     <Compile Include="Mappings\Better888Mappings.cs" />
     <Compile Include="Mappings\BetterMappings.cs" />
@@ -133,6 +129,10 @@
     <ProjectReference Include="..\Vilka.DB\Vilka.DB.csproj">
       <Project>{aee4894e-cb37-489d-b7b0-5a69b31970c8}</Project>
       <Name>Vilka.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Vilka.Infrastructure\Vilka.Infrastructure.csproj">
+      <Project>{5482f180-e4a7-4993-b688-cd13fde1241a}</Project>
+      <Name>Vilka.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

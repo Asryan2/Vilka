@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Vilka.DB;
-using VilkaConsole.Helpers;
+using Vilka.Helpers;
 using VilkaConsole.Mappings;
 
 namespace VilkaConsole.Betters
@@ -45,7 +45,6 @@ namespace VilkaConsole.Betters
 					JObject itemObj = ((JObject)item);
 					JObject eventObj = (JObject)itemObj["event"];
 					Event ev = new Event();
-					ev.SiteID = mappings.ID;
 					string eventData = eventObj["id"].ToObject<string>();
 
 					ev.Home = eventObj["homeName"].ToObject<string>();

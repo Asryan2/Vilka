@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vilka.DB;
-using VilkaConsole.Helpers;
+using Vilka.Helpers;
 using VilkaConsole.Mappings;
 using WebSocketSharp;
 
@@ -14,6 +14,7 @@ namespace VilkaConsole.Betters
 	public class BetterVivaro
 	{
 		private BetterMappings mappings = BetterMappingsFactory.Get(typeof(BetterVivaroMappings));
+		private VilkaEntities context = new VilkaEntities();
 
 		private string sessionID;
 		private string getReq;
@@ -61,15 +62,51 @@ namespace VilkaConsole.Betters
 						string leagueName = league["name"].ToObject<string>();
 						foreach(var game in league["game"])
 						{
-							Event ev = new Event();
-							JObject gameObj = (JObject)game.First;
-							ev.Home = gameObj["team1_name"].ToObject<string>();
-							ev.Away = gameObj["team2_name"].ToObject<string>();
-							ev.Region = regionName;
-							ev.League = leagueName;
-							ev.Start = DateHelpers.TimeStampToDateTime(gameObj["start_ts"].ToObject<double>());
-							ev.PrematchEnd = ev.Start;
+							try
+							{
+								Event ev = new Event();
+								JObject gameObj = (JObject)game.First;
+								ev.Home = gameObj["team1_name"].ToObject<string>();
+								ev.Away = gameObj["team2_name"].ToObject<string>();
+								ev.Region = regionName;
+								ev.League = leagueName;
+								ev.Start = DateHelpers.TimeStampToDateTime(gameObj["start_ts"].ToObject<double>());
+								var a = gameObj["start_ts"];
+								ev.PrematchEnd = ev.Start;
+								if (ev.IsLive()) continue;
+								ev.SportID = mappings.SportMappings[sport["alias"].ToObject<string>()].ID;
+								Event dbEvent = DBFinder.FindEvent(ev).DBCopy(context);
+								if (dbEvent != null)
+								{
+									Console.WriteLine("Found: " + dbEvent.Home + " - " +dbEvent.Away) ;
+									ev = dbEvent;
+								}
+								else
+								{
 
+									context.Events.Add(ev);
+									if(context.SaveChanges() > 0)
+										Console.WriteLine("Added: " + ev.Home + " - " + ev.Away);
+								}
+								foreach (var market in gameObj["market"])
+								{
+									JObject marketObj = (JObject)market.First;
+									if (!mappings.BetTypeMappings.ContainsKey(marketObj["type"].ToObject<string>())) continue;
+									BetOffer offer = new BetOffer();
+									offer.BetType = mappings.BetTypeMappings[marketObj["type"].ToObject<string>()].DBCopy(context);
+									if (!mappings.BetTargetMappings.ContainsKey(marketObj["name"].ToObject<string>())) continue;
+									offer.BetTarget = mappings.BetTargetMappings[marketObj["name"].ToObject<string>()].DBCopy(context);
+									offer.EventID = ev.ID;
+									context.BetOffers.Add(offer);
+									context.SaveChanges();
+								}
+							}
+							catch
+							{
+
+								continue;
+							}
+							
 						}
 					}
 
