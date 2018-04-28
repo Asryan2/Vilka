@@ -19,6 +19,7 @@ namespace Vilka.DB
         {
             this.BetTargetMappings = new HashSet<BetTargetMapping>();
             this.BetTypeMappings = new HashSet<BetTypeMapping>();
+            this.Compare_Events = new HashSet<Compare_Events>();
             this.EventSiteDatas = new HashSet<EventSiteData>();
             this.OutcomeTypeMappings = new HashSet<OutcomeTypeMapping>();
             this.SportMappings = new HashSet<SportMapping>();
@@ -31,6 +32,8 @@ namespace Vilka.DB
         public virtual ICollection<BetTargetMapping> BetTargetMappings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BetTypeMapping> BetTypeMappings { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Compare_Events> Compare_Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventSiteData> EventSiteDatas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

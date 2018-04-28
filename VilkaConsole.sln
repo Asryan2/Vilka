@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareEvents", "CompareEve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vilka.CompareUI", "Vilka.CompareUI\Vilka.CompareUI.csproj", "{AE7BBE59-8980-4FD5-BEED-602C67482FE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vilka.Core", "Vilka.Core\Vilka.Core.csproj", "{9AB2B7D5-5D27-4923-A197-EE1FACF2B980}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vilka.Compare", "Vilka.Compare\Vilka.Compare.csproj", "{2753AC25-CA4C-4EC6-B9A4-5A0E63B549CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{AE7BBE59-8980-4FD5-BEED-602C67482FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE7BBE59-8980-4FD5-BEED-602C67482FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE7BBE59-8980-4FD5-BEED-602C67482FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AB2B7D5-5D27-4923-A197-EE1FACF2B980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AB2B7D5-5D27-4923-A197-EE1FACF2B980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AB2B7D5-5D27-4923-A197-EE1FACF2B980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AB2B7D5-5D27-4923-A197-EE1FACF2B980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2753AC25-CA4C-4EC6-B9A4-5A0E63B549CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2753AC25-CA4C-4EC6-B9A4-5A0E63B549CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2753AC25-CA4C-4EC6-B9A4-5A0E63B549CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2753AC25-CA4C-4EC6-B9A4-5A0E63B549CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

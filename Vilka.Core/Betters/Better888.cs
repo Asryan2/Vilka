@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Vilka.DB;
 using Vilka.Helpers;
-using VilkaConsole.Mappings;
+using Vilka.Infrastructure;
 
-namespace VilkaConsole.Betters
+namespace Vilka.Core
 {
-	class Better888
+	class Better888 : IBetter
 	{
         private VilkaEntities context = new VilkaEntities();
 		private string _allEventsApiUrl = "https://e4-api.kambi.com/offering/api/v3/888/listView/football.json?lang=en_GB&market=ZZ";
@@ -141,7 +141,75 @@ namespace VilkaConsole.Betters
 			}
 		}
 
-		public List<BetOffer> GetEventBetOffers(int eventID)
+		public void FillCompareTable()
+		{
+			
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_allEventsApiUrl);
+			request.Method = "GET";
+			string json;
+			using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+			{
+				Stream dataStream = response.GetResponseStream();
+				StreamReader reader = new StreamReader(dataStream);
+				json = reader.ReadToEnd();
+				reader.Close();
+				dataStream.Close();
+			}
+			int added = 0;
+			JObject obj;
+			try
+			{
+				obj = JObject.Parse(json);
+				foreach (var item in obj["events"])
+				{
+					JObject itemObj = ((JObject)item);
+					JObject eventObj = (JObject)itemObj["event"];
+					Compare_Events ev = new Compare_Events();
+					string eventData = eventObj["id"].ToObject<string>();
+
+					ev.Home = eventObj["homeName"].ToObject<string>();
+					ev.Away = eventObj["awayName"].ToObject<string>();
+					ev.Start = DateHelpers.TimeStampMSToDateTime(eventObj["start"].ToObject<double>());
+					ev.PrematchEnd = DateHelpers.TimeStampMSToDateTime(eventObj["prematchEnd"].ToObject<double>());
+					JArray paths = ((JArray)eventObj["path"]);
+					if (!mappings.SportMappings.ContainsKey(paths[0]["name"].ToObject<string>())) continue;
+					Sport sport = mappings.SportMappings[paths[0]["name"].ToObject<string>()].DBCopy(context);
+					if (sport != null)
+						ev.Sport = sport;
+					else
+					{
+						break;
+					}
+					if (paths.Count == 2)
+					{
+						ev.League = paths[1]["name"].ToObject<string>();
+					}
+					else if (paths.Count == 3)
+					{
+						ev.Region = paths[1]["name"].ToObject<string>();
+						ev.League = paths[2]["name"].ToObject<string>();
+					}
+					ev.SiteID = mappings.ID;
+					context.Compare_Events.Add(ev);
+				}
+				context.SaveChanges();
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine("888 invalid json, or changed json formatting");
+			}
+			
+		}
+
+        public async Task FillCompareTableAsync()
+        {
+            await Task.Run(new Action(() =>
+            {
+                FillCompareTable();
+            }));
+        }
+
+        public List<BetOffer> GetEventBetOffers(int eventID)
 		{
             return new List<BetOffer>();
 		}

@@ -8,13 +8,24 @@
         DataContext="{Binding RegionCompare, Source={StaticResource Locator}}">
 
 	<Grid>
-		
-		<StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Center" >
-			<TextBlock FontSize="20" Text="{Binding RegionOne}" Margin="0 0 25 0"/>
-			<TextBlock FontSize="20" Text="{Binding RegionTwo}" Margin="25 0 0 0"/>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="40"/>
+			<RowDefinition Height="20"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Margin="50 0 50 0" Height="40">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="auto"/>
+				<ColumnDefinition Width="40"/>
+				<ColumnDefinition Width="auto"/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Grid.Column="0"  VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="25" Text="{Binding RegionOne}" />
+			<TextBlock Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="25" Text="{Binding RegionTwo}" />
+		</Grid>
+		<StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Command="{Binding AcceptCommand}" Content="Accept" Width="100" Margin="0 0 10 0"></Button>
+			<Button Command="{Binding RejectCommand}" Content="Reject" Width="100" Margin="10 0 0 0"></Button>
 		</StackPanel>
-		<StackPanel Height="50" Orientation="Horizontal" HorizontalAlignment="Center" >
-			<Button Content="Same"></Button>
-		</StackPanel>
+
 	</Grid>
 </Window>

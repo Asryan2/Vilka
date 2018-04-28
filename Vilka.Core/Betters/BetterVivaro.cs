@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vilka.DB;
-using Vilka.Helpers;
-using VilkaConsole.Mappings;
+using Vilka.Core.Helpers;
+using Vilka.Infrastructure;
 using WebSocketSharp;
 
-namespace VilkaConsole.Betters
+namespace Vilka.Core
 {
-	public class BetterVivaro
+	public class BetterVivaro : IBetter
 	{
 		private BetterMappings mappings = BetterMappingsFactory.Get(typeof(BetterVivaroMappings));
 		private VilkaEntities context = new VilkaEntities();
@@ -38,9 +38,72 @@ namespace VilkaConsole.Betters
 				return Data != null;
 			}
 		}
-		public async void FillDB()
+
+		public void FillCompareTable()
 		{
-			
+				
+			Data = null;
+			socket = new WebSocket(wsURL);
+			socket.Connect();
+			socket.OnMessage += Socket_OnMessage;
+			socket.Send(sessionReq);
+			while (!dataArrived)
+			{
+				Task.Delay(1000).ConfigureAwait(false);
+			}
+			foreach (var sport in Data["sport"].First)
+			{
+				if (!mappings.SportMappings.ContainsKey(sport["alias"].ToObject<string>())) continue;
+				foreach (var region in sport["region"])
+				{
+					JObject regionObj = (JObject)region.First;
+					string regionName = regionObj["alias"].ToObject<string>();
+					foreach (var competition in regionObj["competition"])
+					{
+						JObject league = (JObject)competition.First;
+						string leagueName = league["name"].ToObject<string>();
+						foreach (var game in league["game"])
+						{
+							try
+							{
+								Compare_Events ev = new Compare_Events();
+								JObject gameObj = (JObject)game.First;
+								ev.Home = gameObj["team1_name"].ToObject<string>();
+								ev.Away = gameObj["team2_name"].ToObject<string>();
+								ev.Region = regionName;
+								ev.League = leagueName;
+								ev.Start = DateHelpers.TimeStampToDateTime(gameObj["start_ts"].ToObject<double>());
+								var a = gameObj["start_ts"];
+								ev.PrematchEnd = ev.Start;
+								ev.SportID = mappings.SportMappings[sport["alias"].ToObject<string>()].ID;
+								ev.SiteID = mappings.ID;
+								context.Compare_Events.Add(ev);
+							}
+							catch
+							{
+
+								continue;
+							}
+
+						}
+					}
+
+				}
+			}
+			int count = context.SaveChanges();
+		}
+
+        public async Task FillCompareTableAsync()
+        {
+            await Task.Run(new Action(() =>
+            {
+                FillCompareTable();
+            }));
+
+        }
+		public void FillDB()
+		{
+			Data = null;
 			socket = new WebSocket(wsURL);
 			socket.Connect();
 			socket.OnMessage += Socket_OnMessage;

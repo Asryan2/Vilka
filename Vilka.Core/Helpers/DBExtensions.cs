@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Vilka.DB;
 
-namespace Vilka.Helpers
+namespace Vilka.Core.Helpers
 {
 	public static class DBExtensions
 	{

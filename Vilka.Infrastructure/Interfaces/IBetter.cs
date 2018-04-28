@@ -5,11 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Vilka.DB;
 
-namespace VilkaConsole
+namespace Vilka.Infrastructure
 {
-	interface IBetter
+	public interface IBetter
 	{
-		List<Event> GetAllEvents();
-		List<BetOffer> GetEventBetOffers(int eventID);
+		void FillDB();
+		void FillCompareTable();
+		Task FillCompareTableAsync();
 	}
 }

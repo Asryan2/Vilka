@@ -7,6 +7,6 @@ namespace Vilka.CompareUI.Model
 {
 	public interface IDataService
 	{
-		void GetData(Action<DataItem, Exception> callback);
+		void ComperatorGetNextRegion(Action<string, string> callback);
 	}
 }

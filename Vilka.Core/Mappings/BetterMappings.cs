@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Vilka.DB;
 
-namespace VilkaConsole.Mappings
+namespace Vilka.Core
 {
 	public abstract class BetterMappings
 	{

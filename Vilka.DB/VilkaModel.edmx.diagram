@@ -4,20 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="990fe8ab97464d6190c73f8946c8ecec" Name="Diagram1">
-        <EntityTypeShape EntityType="VilkaModel.BetOffer" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.BetTargetMapping" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.BetTarget" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.BetTypeMapping" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.BetType" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.Event" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.EventSiteData" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.Outcome" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.OutcomeTypeMapping" Width="1.5" PointX="6" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.OutcomeType" Width="1.5" PointX="3.75" PointY="13.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.Site" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.SportMapping" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="VilkaModel.Sport" Width="1.5" PointX="3.75" PointY="1.5" IsExpanded="true" />
+      <Diagram DiagramId="c63e2833012445d2a878a3a4bb0321a5" Name="Diagram1">
+        <EntityTypeShape EntityType="VilkaModel.BetOffer" Width="1.5" PointX="6" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.BetTargetMapping" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.BetTarget" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.BetTypeMapping" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.BetType" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.Compare_Events" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.Event" Width="1.5" PointX="0.75" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.EventSiteData" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.LeagueDictionaryElement" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.League" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.Outcome" Width="1.5" PointX="8.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.OutcomeTypeMapping" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.OutcomeType" Width="1.5" PointX="3.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.Site" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.SportMapping" Width="1.5" PointX="6" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="VilkaModel.Sport" Width="1.5" PointX="3.75" PointY="15.625" IsExpanded="true" />
         <AssociationConnector Association="VilkaModel.FK_BetOffers_BetTargets" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_BetOffers_BetTypes" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_BetOffers_Events" ManuallyRouted="false" />
@@ -26,14 +29,23 @@
         <AssociationConnector Association="VilkaModel.FK_BetTargetMappings_Sites" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_BetTypeMappings_BetTypes" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_BetTypeMappings_Sites" ManuallyRouted="false" />
+        <AssociationConnector Association="VilkaModel.FK_Compare_Events_Sites" ManuallyRouted="false" />
+        <AssociationConnector Association="VilkaModel.FK_Compare_Events_Sports" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_Events_Sports" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_EventSiteData_Events" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_EventSiteData_Sites" ManuallyRouted="false" />
+        <AssociationConnector Association="VilkaModel.FK_LeagueDictionaryElements_Leagues" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_Outcomes_OutcomeTypes" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_OutcomeTypeMappings_OutcomeTypes" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_OutcomeTypeMappings_Sites" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_SportMappings_Sites" ManuallyRouted="false" />
         <AssociationConnector Association="VilkaModel.FK_SportMappings_Sports" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="VilkaModel.Region" Width="1.5" PointX="5.375" PointY="0.875" />
+        <AssociationConnector Association="VilkaModel.FK_LeagueDictionaryElements_Sports" />
+        <AssociationConnector Association="VilkaModel.FK_Leagues_Regions" />
+        <AssociationConnector Association="VilkaModel.FK_Leagues_Sports" />
+        <EntityTypeShape EntityType="VilkaModel.RegionDictionaryElement" Width="1.5" PointX="7.625" PointY="1" />
+        <AssociationConnector Association="VilkaModel.FK_RegionDictionaryElements_Regions" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

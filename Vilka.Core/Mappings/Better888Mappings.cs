@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VilkaConsole.Mappings
+namespace Vilka.Core
 {
     public class Better888Mappings : BetterMappings
     {

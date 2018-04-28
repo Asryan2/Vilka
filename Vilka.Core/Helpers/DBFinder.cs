@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vilka.Compare;
 using Vilka.DB;
 
-namespace Vilka.Helpers
+namespace Vilka.Core.Helpers
 {
 	public static class DBFinder
 	{
@@ -24,5 +25,7 @@ namespace Vilka.Helpers
 				return null;
 			}
 		}
+
+
 	}
 }

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
-using VilkaConsole.Betters;
+using Vilka.Core;
 
 namespace VilkaConsole
 {
@@ -11,17 +12,23 @@ namespace VilkaConsole
     {
         static void Main(string[] args)
         {
-            BetterVivaro better = new BetterVivaro();
-			DateTime start = DateTime.Now;
-			better.FillDB();
-			TimeSpan took = DateTime.Now - start;
-			Console.WriteLine(took.ToString("G"));
-            //foreach(Event e in events)
-            //{
-            //    Console.WriteLine(e.Home + " - " + e.Away + "; League = " + e.League + "; Region = " + e.Region);
-            //}
+			VilkaApplicaiton.Run();
+			DictionaryBuilder.Build();
+			while(true)
+			{
+				Thread.Sleep(1000);
+			}
+			//BetterVivaro better = new BetterVivaro();
+			//DateTime start = DateTime.Now;
+			//better.FillDB();
+			//TimeSpan took = DateTime.Now - start;
+			//Console.WriteLine(took.ToString("G"));
+			//foreach(Event e in events)
+			//{
+			//    Console.WriteLine(e.Home + " - " + e.Away + "; League = " + e.League + "; Region = " + e.Region);
+			//}
 			//test
-            Console.ReadLine();
+			Console.ReadLine();
         }
     }
 }

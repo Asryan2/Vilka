@@ -12,30 +12,22 @@ namespace Vilka.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class Sport
+    public partial class League
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sport()
+        public League()
         {
-            this.Compare_Events = new HashSet<Compare_Events>();
-            this.Events = new HashSet<Event>();
-            this.SportMappings = new HashSet<SportMapping>();
             this.LeagueDictionaryElements = new HashSet<LeagueDictionaryElement>();
-            this.Leagues = new HashSet<League>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
+        public Nullable<int> RegionID { get; set; }
+        public int SportID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Compare_Events> Compare_Events { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Event> Events { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SportMapping> SportMappings { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueDictionaryElement> LeagueDictionaryElements { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<League> Leagues { get; set; }
+        public virtual Region Region { get; set; }
+        public virtual Sport Sport { get; set; }
     }
 }
