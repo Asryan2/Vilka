@@ -61,6 +61,7 @@
     <Compile Include="Betters\Better888.cs" />
     <Compile Include="Betters\BetterVivaro.cs" />
     <Compile Include="DictionaryBuilder.cs" />
+    <Compile Include="Dicts.cs" />
     <Compile Include="Helpers\DateHelpers.cs" />
     <Compile Include="Helpers\DBExtensions.cs" />
     <Compile Include="Helpers\DBFinder.cs" />

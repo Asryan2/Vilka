@@ -7,7 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Vilka.DB;
-using Vilka.Helpers;
+using Vilka.Core.Helpers;
 using Vilka.Infrastructure;
 
 namespace Vilka.Core

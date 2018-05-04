@@ -12,15 +12,12 @@ namespace Vilka.DB
     using System;
     using System.Collections.Generic;
     
-    public partial class LeagueDictionaryElement
+    public partial class RegionsDictionaryOptimizationData
     {
-        public string Name { get; set; }
-        public int SportID { get; set; }
-        public Nullable<int> LeagueID { get; set; }
+        public int ID { get; set; }
         public int RegionID { get; set; }
+        public Nullable<int> WikiPageID { get; set; }
     
-        public virtual League League { get; set; }
-        public virtual Sport Sport { get; set; }
         public virtual Region Region { get; set; }
     }
 }

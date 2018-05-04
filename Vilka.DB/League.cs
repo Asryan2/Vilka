@@ -18,15 +18,18 @@ namespace Vilka.DB
         public League()
         {
             this.LeagueDictionaryElements = new HashSet<LeagueDictionaryElement>();
+            this.LeagueDictionaryOptimizationDatas = new HashSet<LeagueDictionaryOptimizationData>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
-        public Nullable<int> RegionID { get; set; }
+        public int RegionID { get; set; }
         public int SportID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueDictionaryElement> LeagueDictionaryElements { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LeagueDictionaryOptimizationData> LeagueDictionaryOptimizationDatas { get; set; }
         public virtual Region Region { get; set; }
         public virtual Sport Sport { get; set; }
     }

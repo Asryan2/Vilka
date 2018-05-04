@@ -60,6 +60,16 @@
           <Property Name="PrematchEnd" Type="datetime" />
           <Property Name="SiteID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="CompareLeagues">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="First" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Second" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="SportID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Events">
           <Key>
             <PropertyRef Name="ID" />
@@ -86,10 +96,20 @@
           <Key>
             <PropertyRef Name="Name" />
             <PropertyRef Name="SportID" />
+            <PropertyRef Name="RegionID" />
           </Key>
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="SportID" Type="int" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
           <Property Name="LeagueID" Type="int" />
+        </EntityType>
+        <EntityType Name="LeagueDictionaryOptimizationData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LeagueID" Type="int" Nullable="false" />
+          <Property Name="WikiPageID" Type="int" />
         </EntityType>
         <EntityType Name="Leagues">
           <Key>
@@ -97,7 +117,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="RegionID" Type="int" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
           <Property Name="SportID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Outcomes">
@@ -126,12 +146,9 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RegionDictionaryElements">
           <Key>
             <PropertyRef Name="Name" />
-            <PropertyRef Name="RegionID" />
           </Key>
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="RegionID" Type="int" Nullable="false" />
@@ -142,6 +159,14 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RegionsDictionaryOptimizationData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RegionID" Type="int" Nullable="false" />
+          <Property Name="WikiPageID" Type="int" />
         </EntityType>
         <EntityType Name="Sites">
           <Key>
@@ -274,6 +299,30 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CompareLeagues_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="CompareLeagues" Type="Self.CompareLeagues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompareLeagues">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompareLeagues_Sports">
+          <End Role="Sports" Type="Self.Sports" Multiplicity="1" />
+          <End Role="CompareLeagues" Type="Self.CompareLeagues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompareLeagues">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Events_Sports">
           <End Role="Sports" Type="Self.Sports" Multiplicity="1" />
           <End Role="Events" Type="Self.Events" Multiplicity="*" />
@@ -322,6 +371,18 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LeagueDictionaryElements_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="LeagueDictionaryElements" Type="Self.LeagueDictionaryElements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LeagueDictionaryElements">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LeagueDictionaryElements_Sports">
           <End Role="Sports" Type="Self.Sports" Multiplicity="1" />
           <End Role="LeagueDictionaryElements" Type="Self.LeagueDictionaryElements" Multiplicity="*" />
@@ -334,8 +395,20 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LeagueDictionaryOptimizationData_Leagues">
+          <End Role="Leagues" Type="Self.Leagues" Multiplicity="1" />
+          <End Role="LeagueDictionaryOptimizationData" Type="Self.LeagueDictionaryOptimizationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leagues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LeagueDictionaryOptimizationData">
+              <PropertyRef Name="LeagueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Leagues_Regions">
-          <End Role="Regions" Type="Self.Regions" Multiplicity="0..1" />
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
           <End Role="Leagues" Type="Self.Leagues" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Regions">
@@ -418,6 +491,18 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RegionsDictionaryOptimizationData_Regions">
+          <End Role="Regions" Type="Self.Regions" Multiplicity="1" />
+          <End Role="RegionsDictionaryOptimizationData" Type="Self.RegionsDictionaryOptimizationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegionsDictionaryOptimizationData">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SportMappings_Sites">
           <End Role="Sites" Type="Self.Sites" Multiplicity="1" />
           <End Role="SportMappings" Type="Self.SportMappings" Multiplicity="*" />
@@ -442,6 +527,7 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="CEventsGetLeagues" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="CEventsGetRegions" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="VilkaModelStoreContainer">
           <EntitySet Name="BetOffers" EntityType="Self.BetOffers" Schema="dbo" store:Type="Tables" />
@@ -450,23 +536,21 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <EntitySet Name="BetTypeMappings" EntityType="Self.BetTypeMappings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BetTypes" EntityType="Self.BetTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Compare_Events" EntityType="Self.Compare_Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompareLeagues" EntityType="Self.CompareLeagues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventSiteData" EntityType="Self.EventSiteData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LeagueDictionaryElements" EntityType="Self.LeagueDictionaryElements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LeagueDictionaryOptimizationData" EntityType="Self.LeagueDictionaryOptimizationData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Leagues" EntityType="Self.Leagues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Outcomes" EntityType="Self.Outcomes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OutcomeTypeMappings" EntityType="Self.OutcomeTypeMappings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OutcomeTypes" EntityType="Self.OutcomeTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegionDictionaryElements" EntityType="Self.RegionDictionaryElements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Regions" EntityType="Self.Regions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RegionsDictionaryOptimizationData" EntityType="Self.RegionsDictionaryOptimizationData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SportMappings" EntityType="Self.SportMappings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sports" EntityType="Self.Sports" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RegionDictionaryElements" EntityType="Self.RegionDictionaryElements" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RegionDictionaryElements].[Name] AS [Name], 
-    [RegionDictionaryElements].[RegionID] AS [RegionID]
-    FROM [dbo].[RegionDictionaryElements] AS [RegionDictionaryElements]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_BetOffers_BetTargets" Association="Self.FK_BetOffers_BetTargets">
             <End Role="BetTargets" EntitySet="BetTargets" />
             <End Role="BetOffers" EntitySet="BetOffers" />
@@ -503,6 +587,14 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             <End Role="Sports" EntitySet="Sports" />
             <End Role="Compare_Events" EntitySet="Compare_Events" />
           </AssociationSet>
+          <AssociationSet Name="FK_CompareLeagues_Regions" Association="Self.FK_CompareLeagues_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="CompareLeagues" EntitySet="CompareLeagues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompareLeagues_Sports" Association="Self.FK_CompareLeagues_Sports">
+            <End Role="Sports" EntitySet="Sports" />
+            <End Role="CompareLeagues" EntitySet="CompareLeagues" />
+          </AssociationSet>
           <AssociationSet Name="FK_Events_Sports" Association="Self.FK_Events_Sports">
             <End Role="Sports" EntitySet="Sports" />
             <End Role="Events" EntitySet="Events" />
@@ -519,9 +611,17 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             <End Role="Leagues" EntitySet="Leagues" />
             <End Role="LeagueDictionaryElements" EntitySet="LeagueDictionaryElements" />
           </AssociationSet>
+          <AssociationSet Name="FK_LeagueDictionaryElements_Regions" Association="Self.FK_LeagueDictionaryElements_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="LeagueDictionaryElements" EntitySet="LeagueDictionaryElements" />
+          </AssociationSet>
           <AssociationSet Name="FK_LeagueDictionaryElements_Sports" Association="Self.FK_LeagueDictionaryElements_Sports">
             <End Role="Sports" EntitySet="Sports" />
             <End Role="LeagueDictionaryElements" EntitySet="LeagueDictionaryElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeagueDictionaryOptimizationData_Leagues" Association="Self.FK_LeagueDictionaryOptimizationData_Leagues">
+            <End Role="Leagues" EntitySet="Leagues" />
+            <End Role="LeagueDictionaryOptimizationData" EntitySet="LeagueDictionaryOptimizationData" />
           </AssociationSet>
           <AssociationSet Name="FK_Leagues_Regions" Association="Self.FK_Leagues_Regions">
             <End Role="Regions" EntitySet="Regions" />
@@ -550,6 +650,10 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <AssociationSet Name="FK_RegionDictionaryElements_Regions" Association="Self.FK_RegionDictionaryElements_Regions">
             <End Role="Regions" EntitySet="Regions" />
             <End Role="RegionDictionaryElements" EntitySet="RegionDictionaryElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionsDictionaryOptimizationData_Regions" Association="Self.FK_RegionsDictionaryOptimizationData_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="RegionsDictionaryOptimizationData" EntitySet="RegionsDictionaryOptimizationData" />
           </AssociationSet>
           <AssociationSet Name="FK_SportMappings_Sites" Association="Self.FK_SportMappings_Sites">
             <End Role="Sites" EntitySet="Sites" />
@@ -633,6 +737,18 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <NavigationProperty Name="Site" Relationship="Self.FK_Compare_Events_Sites" FromRole="Compare_Events" ToRole="Sites" />
           <NavigationProperty Name="Sport" Relationship="Self.FK_Compare_Events_Sports" FromRole="Compare_Events" ToRole="Sports" />
         </EntityType>
+        <EntityType Name="CompareLeague">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="First" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Second" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="SportID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_CompareLeagues_Regions" FromRole="CompareLeagues" ToRole="Regions" />
+          <NavigationProperty Name="Sport" Relationship="Self.FK_CompareLeagues_Sports" FromRole="CompareLeagues" ToRole="Sports" />
+        </EntityType>
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="ID" />
@@ -664,12 +780,24 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <Key>
             <PropertyRef Name="Name" />
             <PropertyRef Name="SportID" />
+            <PropertyRef Name="RegionID" />
           </Key>
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SportID" Type="Int32" Nullable="false" />
           <Property Name="LeagueID" Type="Int32" />
           <NavigationProperty Name="League" Relationship="Self.FK_LeagueDictionaryElements_Leagues" FromRole="LeagueDictionaryElements" ToRole="Leagues" />
-          <Property Name="SportID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Sport" Relationship="VilkaModel.FK_LeagueDictionaryElements_Sports" FromRole="LeagueDictionaryElement" ToRole="Sport" />
+          <NavigationProperty Name="Sport" Relationship="Self.FK_LeagueDictionaryElements_Sports" FromRole="LeagueDictionaryElements" ToRole="Sports" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="VilkaModel.FK_LeagueDictionaryElements_Regions" FromRole="LeagueDictionaryElement" ToRole="Region" />
+        </EntityType>
+        <EntityType Name="LeagueDictionaryOptimizationData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LeagueID" Type="Int32" Nullable="false" />
+          <Property Name="WikiPageID" Type="Int32" />
+          <NavigationProperty Name="League" Relationship="Self.FK_LeagueDictionaryOptimizationData_Leagues" FromRole="LeagueDictionaryOptimizationData" ToRole="Leagues" />
         </EntityType>
         <EntityType Name="League">
           <Key>
@@ -677,11 +805,12 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="LeagueDictionaryElements" Relationship="Self.FK_LeagueDictionaryElements_Leagues" FromRole="Leagues" ToRole="LeagueDictionaryElements" />
-          <Property Name="RegionID" Type="Int32" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
           <Property Name="SportID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Region" Relationship="VilkaModel.FK_Leagues_Regions" FromRole="League" ToRole="Region" />
-          <NavigationProperty Name="Sport" Relationship="VilkaModel.FK_Leagues_Sports" FromRole="League" ToRole="Sport" />
+          <NavigationProperty Name="LeagueDictionaryElements" Relationship="Self.FK_LeagueDictionaryElements_Leagues" FromRole="Leagues" ToRole="LeagueDictionaryElements" />
+          <NavigationProperty Name="LeagueDictionaryOptimizationDatas" Relationship="Self.FK_LeagueDictionaryOptimizationData_Leagues" FromRole="Leagues" ToRole="LeagueDictionaryOptimizationData" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_Leagues_Regions" FromRole="Leagues" ToRole="Regions" />
+          <NavigationProperty Name="Sport" Relationship="Self.FK_Leagues_Sports" FromRole="Leagues" ToRole="Sports" />
         </EntityType>
         <EntityType Name="Outcome">
           <Key>
@@ -715,6 +844,35 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <NavigationProperty Name="Outcomes" Relationship="Self.FK_Outcomes_OutcomeTypes" FromRole="OutcomeTypes" ToRole="Outcomes" />
           <NavigationProperty Name="OutcomeTypeMappings" Relationship="Self.FK_OutcomeTypeMappings_OutcomeTypes" FromRole="OutcomeTypes" ToRole="OutcomeTypeMappings" />
         </EntityType>
+        <EntityType Name="RegionDictionaryElement">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_RegionDictionaryElements_Regions" FromRole="RegionDictionaryElements" ToRole="Regions" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="CompareLeagues" Relationship="Self.FK_CompareLeagues_Regions" FromRole="Regions" ToRole="CompareLeagues" />
+          <NavigationProperty Name="Leagues" Relationship="Self.FK_Leagues_Regions" FromRole="Regions" ToRole="Leagues" />
+          <NavigationProperty Name="RegionDictionaryElements" Relationship="Self.FK_RegionDictionaryElements_Regions" FromRole="Regions" ToRole="RegionDictionaryElements" />
+          <NavigationProperty Name="RegionsDictionaryOptimizationDatas" Relationship="Self.FK_RegionsDictionaryOptimizationData_Regions" FromRole="Regions" ToRole="RegionsDictionaryOptimizationData" />
+          <NavigationProperty Name="LeagueDictionaryElements" Relationship="VilkaModel.FK_LeagueDictionaryElements_Regions" FromRole="Region" ToRole="LeagueDictionaryElement" />
+        </EntityType>
+        <EntityType Name="RegionsDictionaryOptimizationData">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegionID" Type="Int32" Nullable="false" />
+          <Property Name="WikiPageID" Type="Int32" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_RegionsDictionaryOptimizationData_Regions" FromRole="RegionsDictionaryOptimizationData" ToRole="Regions" />
+        </EntityType>
         <EntityType Name="Site">
           <Key>
             <PropertyRef Name="ID" />
@@ -746,10 +904,11 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Compare_Events" Relationship="Self.FK_Compare_Events_Sports" FromRole="Sports" ToRole="Compare_Events" />
+          <NavigationProperty Name="CompareLeagues" Relationship="Self.FK_CompareLeagues_Sports" FromRole="Sports" ToRole="CompareLeagues" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Events_Sports" FromRole="Sports" ToRole="Events" />
+          <NavigationProperty Name="LeagueDictionaryElements" Relationship="Self.FK_LeagueDictionaryElements_Sports" FromRole="Sports" ToRole="LeagueDictionaryElements" />
+          <NavigationProperty Name="Leagues" Relationship="Self.FK_Leagues_Sports" FromRole="Sports" ToRole="Leagues" />
           <NavigationProperty Name="SportMappings" Relationship="Self.FK_SportMappings_Sports" FromRole="Sports" ToRole="SportMappings" />
-          <NavigationProperty Name="LeagueDictionaryElements" Relationship="VilkaModel.FK_LeagueDictionaryElements_Sports" FromRole="Sport" ToRole="LeagueDictionaryElement" />
-          <NavigationProperty Name="Leagues" Relationship="VilkaModel.FK_Leagues_Sports" FromRole="Sport" ToRole="League" />
         </EntityType>
         <Association Name="FK_BetOffers_BetTargets">
           <End Role="BetTargets" Type="Self.BetTarget" Multiplicity="0..1" />
@@ -871,6 +1030,30 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_CompareLeagues_Regions">
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="CompareLeagues" Type="Self.CompareLeague" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompareLeagues">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompareLeagues_Sports">
+          <End Role="Sports" Type="Self.Sport" Multiplicity="1" />
+          <End Role="CompareLeagues" Type="Self.CompareLeague" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CompareLeagues">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Events_Sports">
           <End Role="Sports" Type="Self.Sport" Multiplicity="1" />
           <End Role="Events" Type="Self.Event" Multiplicity="*" />
@@ -919,6 +1102,54 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_LeagueDictionaryElements_Sports">
+          <End Role="Sports" Type="Self.Sport" Multiplicity="1" />
+          <End Role="LeagueDictionaryElements" Type="Self.LeagueDictionaryElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LeagueDictionaryElements">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LeagueDictionaryOptimizationData_Leagues">
+          <End Role="Leagues" Type="Self.League" Multiplicity="1" />
+          <End Role="LeagueDictionaryOptimizationData" Type="Self.LeagueDictionaryOptimizationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Leagues">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="LeagueDictionaryOptimizationData">
+              <PropertyRef Name="LeagueID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leagues_Regions">
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="Leagues" Type="Self.League" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Leagues">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Leagues_Sports">
+          <End Role="Sports" Type="Self.Sport" Multiplicity="1" />
+          <End Role="Leagues" Type="Self.League" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sports">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Leagues">
+              <PropertyRef Name="SportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Outcomes_OutcomeTypes">
           <End Role="OutcomeTypes" Type="Self.OutcomeType" Multiplicity="1" />
           <End Role="Outcomes" Type="Self.Outcome" Multiplicity="*" />
@@ -955,6 +1186,30 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RegionDictionaryElements_Regions">
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="RegionDictionaryElements" Type="Self.RegionDictionaryElement" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegionDictionaryElements">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RegionsDictionaryOptimizationData_Regions">
+          <End Role="Regions" Type="Self.Region" Multiplicity="1" />
+          <End Role="RegionsDictionaryOptimizationData" Type="Self.RegionsDictionaryOptimizationData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Regions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RegionsDictionaryOptimizationData">
+              <PropertyRef Name="RegionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SportMappings_Sites">
           <End Role="Sites" Type="Self.Site" Multiplicity="1" />
           <End Role="SportMappings" Type="Self.SportMapping" Multiplicity="*" />
@@ -986,13 +1241,18 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <EntitySet Name="BetTypeMappings" EntityType="Self.BetTypeMapping" />
           <EntitySet Name="BetTypes" EntityType="Self.BetType" />
           <EntitySet Name="Compare_Events" EntityType="Self.Compare_Events" />
+          <EntitySet Name="CompareLeagues" EntityType="Self.CompareLeague" />
           <EntitySet Name="Events" EntityType="Self.Event" />
           <EntitySet Name="EventSiteDatas" EntityType="Self.EventSiteData" />
           <EntitySet Name="LeagueDictionaryElements" EntityType="Self.LeagueDictionaryElement" />
+          <EntitySet Name="LeagueDictionaryOptimizationDatas" EntityType="Self.LeagueDictionaryOptimizationData" />
           <EntitySet Name="Leagues" EntityType="Self.League" />
           <EntitySet Name="Outcomes" EntityType="Self.Outcome" />
           <EntitySet Name="OutcomeTypeMappings" EntityType="Self.OutcomeTypeMapping" />
           <EntitySet Name="OutcomeTypes" EntityType="Self.OutcomeType" />
+          <EntitySet Name="RegionDictionaryElements" EntityType="Self.RegionDictionaryElement" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="RegionsDictionaryOptimizationDatas" EntityType="Self.RegionsDictionaryOptimizationData" />
           <EntitySet Name="Sites" EntityType="Self.Site" />
           <EntitySet Name="SportMappings" EntityType="Self.SportMapping" />
           <EntitySet Name="Sports" EntityType="Self.Sport" />
@@ -1036,6 +1296,14 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             <End Role="Sports" EntitySet="Sports" />
             <End Role="Compare_Events" EntitySet="Compare_Events" />
           </AssociationSet>
+          <AssociationSet Name="FK_CompareLeagues_Regions" Association="Self.FK_CompareLeagues_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="CompareLeagues" EntitySet="CompareLeagues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompareLeagues_Sports" Association="Self.FK_CompareLeagues_Sports">
+            <End Role="Sports" EntitySet="Sports" />
+            <End Role="CompareLeagues" EntitySet="CompareLeagues" />
+          </AssociationSet>
           <AssociationSet Name="FK_Events_Sports" Association="Self.FK_Events_Sports">
             <End Role="Sports" EntitySet="Sports" />
             <End Role="Events" EntitySet="Events" />
@@ -1052,6 +1320,22 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             <End Role="Leagues" EntitySet="Leagues" />
             <End Role="LeagueDictionaryElements" EntitySet="LeagueDictionaryElements" />
           </AssociationSet>
+          <AssociationSet Name="FK_LeagueDictionaryElements_Sports" Association="Self.FK_LeagueDictionaryElements_Sports">
+            <End Role="Sports" EntitySet="Sports" />
+            <End Role="LeagueDictionaryElements" EntitySet="LeagueDictionaryElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LeagueDictionaryOptimizationData_Leagues" Association="Self.FK_LeagueDictionaryOptimizationData_Leagues">
+            <End Role="Leagues" EntitySet="Leagues" />
+            <End Role="LeagueDictionaryOptimizationData" EntitySet="LeagueDictionaryOptimizationDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leagues_Regions" Association="Self.FK_Leagues_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="Leagues" EntitySet="Leagues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Leagues_Sports" Association="Self.FK_Leagues_Sports">
+            <End Role="Sports" EntitySet="Sports" />
+            <End Role="Leagues" EntitySet="Leagues" />
+          </AssociationSet>
           <AssociationSet Name="FK_Outcomes_OutcomeTypes" Association="Self.FK_Outcomes_OutcomeTypes">
             <End Role="OutcomeTypes" EntitySet="OutcomeTypes" />
             <End Role="Outcomes" EntitySet="Outcomes" />
@@ -1064,6 +1348,14 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             <End Role="Sites" EntitySet="Sites" />
             <End Role="OutcomeTypeMappings" EntitySet="OutcomeTypeMappings" />
           </AssociationSet>
+          <AssociationSet Name="FK_RegionDictionaryElements_Regions" Association="Self.FK_RegionDictionaryElements_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="RegionDictionaryElements" EntitySet="RegionDictionaryElements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RegionsDictionaryOptimizationData_Regions" Association="Self.FK_RegionsDictionaryOptimizationData_Regions">
+            <End Role="Regions" EntitySet="Regions" />
+            <End Role="RegionsDictionaryOptimizationData" EntitySet="RegionsDictionaryOptimizationDatas" />
+          </AssociationSet>
           <AssociationSet Name="FK_SportMappings_Sites" Association="Self.FK_SportMappings_Sites">
             <End Role="Sites" EntitySet="Sites" />
             <End Role="SportMappings" EntitySet="SportMappings" />
@@ -1072,88 +1364,26 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
             <End Role="Sports" EntitySet="Sports" />
             <End Role="SportMappings" EntitySet="SportMappings" />
           </AssociationSet>
-          <EntitySet Name="Regions" EntityType="VilkaModel.Region" />
-          <AssociationSet Name="FK_LeagueDictionaryElements_Sports" Association="VilkaModel.FK_LeagueDictionaryElements_Sports">
-            <End Role="Sport" EntitySet="Sports" />
+          <FunctionImport Name="CEventsGetLeagues" ReturnType="Collection(VilkaModel.CEventsGetLeagues_Result)" />
+          <FunctionImport Name="CEventsGetRegions" ReturnType="Collection(String)" />
+          <AssociationSet Name="FK_LeagueDictionaryElements_Regions" Association="VilkaModel.FK_LeagueDictionaryElements_Regions">
+            <End Role="Region" EntitySet="Regions" />
             <End Role="LeagueDictionaryElement" EntitySet="LeagueDictionaryElements" />
           </AssociationSet>
-          <AssociationSet Name="FK_Leagues_Regions" Association="VilkaModel.FK_Leagues_Regions">
-            <End Role="Region" EntitySet="Regions" />
-            <End Role="League" EntitySet="Leagues" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Leagues_Sports" Association="VilkaModel.FK_Leagues_Sports">
-            <End Role="Sport" EntitySet="Sports" />
-            <End Role="League" EntitySet="Leagues" />
-          </AssociationSet>
-          <EntitySet Name="RegionDictionaryElements" EntityType="VilkaModel.RegionDictionaryElement" />
-          <AssociationSet Name="FK_RegionDictionaryElements_Regions" Association="VilkaModel.FK_RegionDictionaryElements_Regions">
-            <End Role="Region" EntitySet="Regions" />
-            <End Role="RegionDictionaryElement" EntitySet="RegionDictionaryElements" />
-          </AssociationSet>
-          <FunctionImport Name="CEventsGetRegions" ReturnType="Collection(String)" />
         </EntityContainer>
-        <EntityType Name="Region">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Leagues" Relationship="VilkaModel.FK_Leagues_Regions" FromRole="Region" ToRole="League" />
-          <NavigationProperty Name="RegionDictionaryElements" Relationship="VilkaModel.FK_RegionDictionaryElements_Regions" FromRole="Region" ToRole="RegionDictionaryElement" />
-        </EntityType>
-        <Association Name="FK_LeagueDictionaryElements_Sports">
-          <End Type="VilkaModel.Sport" Role="Sport" Multiplicity="1" />
+        <ComplexType Name="CEventsGetLeagues_Result">
+          <Property Type="String" Name="League" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Region" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="SportID" Nullable="false" />
+        </ComplexType>
+        <Association Name="FK_LeagueDictionaryElements_Regions">
+          <End Type="VilkaModel.Region" Role="Region" Multiplicity="1" />
           <End Type="VilkaModel.LeagueDictionaryElement" Role="LeagueDictionaryElement" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Sport">
+            <Principal Role="Region">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="LeagueDictionaryElement">
-              <PropertyRef Name="SportID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leagues_Regions">
-          <End Type="VilkaModel.Region" Role="Region" Multiplicity="0..1" />
-          <End Type="VilkaModel.League" Role="League" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Region">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="League">
-              <PropertyRef Name="RegionID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Leagues_Sports">
-          <End Type="VilkaModel.Sport" Role="Sport" Multiplicity="1" />
-          <End Type="VilkaModel.League" Role="League" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sport">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="League">
-              <PropertyRef Name="SportID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="RegionDictionaryElement">
-          <Key>
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="RegionID" />
-          </Key>
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="RegionID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Region" Relationship="VilkaModel.FK_RegionDictionaryElements_Regions" FromRole="RegionDictionaryElement" ToRole="Region" />
-        </EntityType>
-        <Association Name="FK_RegionDictionaryElements_Regions">
-          <End Type="VilkaModel.Region" Role="Region" Multiplicity="1" />
-          <End Type="VilkaModel.RegionDictionaryElement" Role="RegionDictionaryElement" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Region">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="RegionDictionaryElement">
               <PropertyRef Name="RegionID" />
             </Dependent>
           </ReferentialConstraint>
@@ -1225,6 +1455,17 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="CompareLeagues">
+            <EntityTypeMapping TypeName="VilkaModel.CompareLeague">
+              <MappingFragment StoreEntitySet="CompareLeagues">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="First" ColumnName="First" />
+                <ScalarProperty Name="Second" ColumnName="Second" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="VilkaModel.Event">
               <MappingFragment StoreEntitySet="Events">
@@ -1252,19 +1493,29 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
           <EntitySetMapping Name="LeagueDictionaryElements">
             <EntityTypeMapping TypeName="VilkaModel.LeagueDictionaryElement">
               <MappingFragment StoreEntitySet="LeagueDictionaryElements">
-                <ScalarProperty Name="SportID" ColumnName="SportID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
                 <ScalarProperty Name="LeagueID" ColumnName="LeagueID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LeagueDictionaryOptimizationDatas">
+            <EntityTypeMapping TypeName="VilkaModel.LeagueDictionaryOptimizationData">
+              <MappingFragment StoreEntitySet="LeagueDictionaryOptimizationData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="LeagueID" ColumnName="LeagueID" />
+                <ScalarProperty Name="WikiPageID" ColumnName="WikiPageID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Leagues">
             <EntityTypeMapping TypeName="VilkaModel.League">
               <MappingFragment StoreEntitySet="Leagues">
-                <ScalarProperty Name="SportID" ColumnName="SportID" />
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1297,6 +1548,31 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="RegionDictionaryElements">
+            <EntityTypeMapping TypeName="VilkaModel.RegionDictionaryElement">
+              <MappingFragment StoreEntitySet="RegionDictionaryElements">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="VilkaModel.Region">
+              <MappingFragment StoreEntitySet="Regions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegionsDictionaryOptimizationDatas">
+            <EntityTypeMapping TypeName="VilkaModel.RegionsDictionaryOptimizationData">
+              <MappingFragment StoreEntitySet="RegionsDictionaryOptimizationData">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
+                <ScalarProperty Name="WikiPageID" ColumnName="WikiPageID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sites">
             <EntityTypeMapping TypeName="VilkaModel.Site">
               <MappingFragment StoreEntitySet="Sites">
@@ -1323,22 +1599,15 @@ warning 6002: The table/view 'Vilka.dbo.RegionDictionaryElements' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Regions">
-            <EntityTypeMapping TypeName="VilkaModel.Region">
-              <MappingFragment StoreEntitySet="Regions">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RegionDictionaryElements">
-            <EntityTypeMapping TypeName="VilkaModel.RegionDictionaryElement">
-              <MappingFragment StoreEntitySet="RegionDictionaryElements">
-                <ScalarProperty Name="RegionID" ColumnName="RegionID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CEventsGetLeagues" FunctionName="VilkaModel.Store.CEventsGetLeagues">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="VilkaModel.CEventsGetLeagues_Result">
+                <ScalarProperty Name="League" ColumnName="League" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="SportID" ColumnName="SportID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CEventsGetRegions" FunctionName="VilkaModel.Store.CEventsGetRegions" />
         </EntityContainerMapping>
       </Mapping>

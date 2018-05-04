@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Vilka.CompareUI.ViewModel;
+using Vilka.Core;
 
 namespace Vilka.CompareUI
 {
@@ -14,6 +15,7 @@ namespace Vilka.CompareUI
 		public MainWindow()
 		{
 			InitializeComponent();
+            VilkaApplicaiton.Run();
 			Closing += (s, e) => ViewModelLocator.Cleanup();
 		}
 	}

@@ -18,10 +18,11 @@ namespace Vilka.DB
         public Sport()
         {
             this.Compare_Events = new HashSet<Compare_Events>();
+            this.CompareLeagues = new HashSet<CompareLeague>();
             this.Events = new HashSet<Event>();
-            this.SportMappings = new HashSet<SportMapping>();
             this.LeagueDictionaryElements = new HashSet<LeagueDictionaryElement>();
             this.Leagues = new HashSet<League>();
+            this.SportMappings = new HashSet<SportMapping>();
         }
     
         public int ID { get; set; }
@@ -30,12 +31,14 @@ namespace Vilka.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Compare_Events> Compare_Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<CompareLeague> CompareLeagues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SportMapping> SportMappings { get; set; }
+        public virtual ICollection<Event> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LeagueDictionaryElement> LeagueDictionaryElements { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<League> Leagues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SportMapping> SportMappings { get; set; }
     }
 }

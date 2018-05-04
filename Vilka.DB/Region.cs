@@ -17,16 +17,25 @@ namespace Vilka.DB
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Region()
         {
+            this.CompareLeagues = new HashSet<CompareLeague>();
             this.Leagues = new HashSet<League>();
             this.RegionDictionaryElements = new HashSet<RegionDictionaryElement>();
+            this.RegionsDictionaryOptimizationDatas = new HashSet<RegionsDictionaryOptimizationData>();
+            this.LeagueDictionaryElements = new HashSet<LeagueDictionaryElement>();
         }
     
         public int ID { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CompareLeague> CompareLeagues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<League> Leagues { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RegionDictionaryElement> RegionDictionaryElements { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RegionsDictionaryOptimizationData> RegionsDictionaryOptimizationDatas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LeagueDictionaryElement> LeagueDictionaryElements { get; set; }
     }
 }

@@ -7,6 +7,6 @@ namespace Vilka.CompareUI.Model
 {
 	public interface IDataService
 	{
-		void ComperatorGetNextRegion(Action<string, string> callback);
+		void ComperatorGetNextLeague(Action<string, string, string, string, Action<bool>> callback);
 	}
 }

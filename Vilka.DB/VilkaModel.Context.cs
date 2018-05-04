@@ -33,18 +33,26 @@ namespace Vilka.DB
         public virtual DbSet<BetTypeMapping> BetTypeMappings { get; set; }
         public virtual DbSet<BetType> BetTypes { get; set; }
         public virtual DbSet<Compare_Events> Compare_Events { get; set; }
+        public virtual DbSet<CompareLeague> CompareLeagues { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<EventSiteData> EventSiteDatas { get; set; }
         public virtual DbSet<LeagueDictionaryElement> LeagueDictionaryElements { get; set; }
+        public virtual DbSet<LeagueDictionaryOptimizationData> LeagueDictionaryOptimizationDatas { get; set; }
         public virtual DbSet<League> Leagues { get; set; }
         public virtual DbSet<Outcome> Outcomes { get; set; }
         public virtual DbSet<OutcomeTypeMapping> OutcomeTypeMappings { get; set; }
         public virtual DbSet<OutcomeType> OutcomeTypes { get; set; }
+        public virtual DbSet<RegionDictionaryElement> RegionDictionaryElements { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<RegionsDictionaryOptimizationData> RegionsDictionaryOptimizationDatas { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<SportMapping> SportMappings { get; set; }
         public virtual DbSet<Sport> Sports { get; set; }
-        public virtual DbSet<Region> Regions { get; set; }
-        public virtual DbSet<RegionDictionaryElement> RegionDictionaryElements { get; set; }
+    
+        public virtual ObjectResult<CEventsGetLeagues_Result> CEventsGetLeagues()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CEventsGetLeagues_Result>("CEventsGetLeagues");
+        }
     
         public virtual ObjectResult<string> CEventsGetRegions()
         {

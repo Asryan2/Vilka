@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Vilka.Infrastructure.Interfaces
 {
-    public interface IComparator<T>
+    public interface IComparator<T, O>
     {
-        bool Compare(T one, T two);
+        bool Compare(T one, T two, ref O oneOptimization, ref O twoOptimization);
     }
 }

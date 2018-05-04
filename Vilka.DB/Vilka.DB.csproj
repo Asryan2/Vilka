@@ -66,6 +66,12 @@
     <Compile Include="BetTypeMapping.cs">
       <DependentUpon>VilkaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CEventsGetLeagues_Result.cs">
+      <DependentUpon>VilkaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CompareLeague.cs">
+      <DependentUpon>VilkaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Compare_Events.cs">
       <DependentUpon>VilkaModel.tt</DependentUpon>
     </Compile>
@@ -78,8 +84,12 @@
     <Compile Include="League.cs">
       <DependentUpon>VilkaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="LeagueComparisonQueue.cs" />
     <Compile Include="LeagueDictionary.cs" />
     <Compile Include="LeagueDictionaryElement.cs">
+      <DependentUpon>VilkaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LeagueDictionaryOptimizationData.cs">
       <DependentUpon>VilkaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Outcome.cs">
@@ -97,6 +107,9 @@
     </Compile>
     <Compile Include="RegionDictionary.cs" />
     <Compile Include="RegionDictionaryElement.cs">
+      <DependentUpon>VilkaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RegionsDictionaryOptimizationData.cs">
       <DependentUpon>VilkaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Site.cs">
@@ -141,6 +154,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="script.sql" />
     <Content Include="VilkaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>VilkaModel.edmx</DependentUpon>

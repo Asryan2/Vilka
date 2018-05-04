@@ -14,10 +14,6 @@ namespace VilkaConsole
         {
 			VilkaApplicaiton.Run();
 			DictionaryBuilder.Build();
-			while(true)
-			{
-				Thread.Sleep(1000);
-			}
 			//BetterVivaro better = new BetterVivaro();
 			//DateTime start = DateTime.Now;
 			//better.FillDB();

@@ -39,6 +39,7 @@ namespace Vilka.CompareUI.ViewModel
 			}
 			
 			SimpleIoc.Default.Register<RegionCompareViewModel>();
+			SimpleIoc.Default.Register<LeagueCompareViewModel>();
 		}
 		
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
@@ -52,10 +53,18 @@ namespace Vilka.CompareUI.ViewModel
 			}
 		}
 
-		/// <summary>
-		/// Cleans up all the resources.
-		/// </summary>
-		public static void Cleanup()
+        public LeagueCompareViewModel LeagueCompare
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<LeagueCompareViewModel>();
+            }
+        }
+
+        /// <summary>
+        /// Cleans up all the resources.
+        /// </summary>
+        public static void Cleanup()
 		{
 		}
 	}
